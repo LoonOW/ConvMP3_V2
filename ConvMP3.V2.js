@@ -40,7 +40,7 @@ class Dl {
 				console.log("\\i/".green.bold + " {".cyan.bgMagenta + songName.cyan.bgMagenta.bold + "} ".cyan.bgMagenta + " : Download finished " + "[_SUCCESS_]".green.bold);
 				console.log("====================================================================================".green);
 			}
-			const browser = await puppeteer.launch();//Open browser with puppeteer, to see the window, add {headless: false} in parameters
+			const browser = await puppeteer.launch({headless: false});//Open browser with puppeteer, to see the window, add {headless: false} in parameters
 
 			console.log("\\i/".green.bold + " Starting download process for : " + " {".cyan.bgMagenta + name.cyan.bgMagenta.bold + "} ".cyan.bgMagenta);
 			console.log("====================================================================================".green);
