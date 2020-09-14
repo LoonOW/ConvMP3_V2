@@ -40,13 +40,15 @@ class Dl {
 				console.log("\\i/".green.bold + " {".cyan.bgMagenta + songName.cyan.bgMagenta.bold + "} ".cyan.bgMagenta + " : Download finished " + "[_SUCCESS_]".green.bold);
 				console.log("====================================================================================".green);
 			}
-			const browser = await puppeteer.launch({headless: false});//Open browser with puppeteer, to see the window, add {headless: false} in parameters
+			const browser = await puppeteer.launch();//Open browser with puppeteer, to see the window, add {headless: false} in parameters
 
 			console.log("\\i/".green.bold + " Starting download process for : " + " {".cyan.bgMagenta + name.cyan.bgMagenta.bold + "} ".cyan.bgMagenta);
 			console.log("====================================================================================".green);
 
 			//Open a page with Youtube
 			const page = await browser.newPage();
+			page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
+			
 			console.log(" {".cyan.bgMagenta + name.cyan.bgMagenta.bold + "} ".cyan.bgMagenta + " : " + "[10%---------]".blue + "<--_____--Start Youtube--_____-->".yellow);
 			var errorback = await page.goto('https://www.youtube.com/')
 			.catch(function (e) {
@@ -96,13 +98,14 @@ class Dl {
 			//Clic on the video and get the url
 			console.log(" {".cyan.bgMagenta + name.cyan.bgMagenta.bold + "} ".cyan.bgMagenta + " : " + "[====50%-----]".blue + "<--_____--Youtube video find--_____-->".yellow);
 			await page.waitFor(1000);
+			await page.screenshot({path: 'C:\\Users\\Corentin\\Documents\\dev\\ConvMP4buddy-screenshot.png'});
 			var errorback = await page.evaluate(() => {
 				const obj = document.querySelector('a[id="video-title"]');
 				obj.click();
 			})
 			.catch(function (e) {
 				console.log("\\i/".green.bold + " {".cyan.bgMagenta + name.cyan.bgMagenta.bold + "} ".cyan.bgMagenta + " : Download failed " + "[_FAILED_]".red.bold);
-				console.log("/!\\ ".red + " {".cyan.bgMagenta + name.cyan.bgMagenta.bold + "} ".cyan.bgMagenta + " " + "ERROR :".red.underline + " Le vidéo Youtube n'est pas accessible /|\\ ".red + " " + e.toString().red);
+				console.log("/!\\ ".red + " {".cyan.bgMagenta + name.cyan.bgMagenta.bold + "} ".cyan.bgMagenta + " " + "ERROR :".red.underline + " La vidéo Youtube n'est pas accessible /|\\ ".red + " " + e.toString().red);
 		    	openSubl();
 		    	return(false);
 			});
